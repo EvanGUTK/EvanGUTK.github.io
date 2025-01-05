@@ -62,12 +62,21 @@
         <p>Feel free to reach out to me via email: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
     </section>
 
+    <!-- Light/Dark Mode Switch -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+        <em>Enable Dark Mode!</em>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Your Name. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript for Tab Navigation -->
+    <!-- JavaScript for Tab Navigation and Theme Switch -->
     <script>
         function openTab(evt, tabName) {
             // Get all elements with class="tab-content" and hide them
@@ -92,6 +101,30 @@
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementsByClassName("tab-content")[0].style.display = "block";
         });
+
+        // Theme switch
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
     </script>
 </body>
 </html>
