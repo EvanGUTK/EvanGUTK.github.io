@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Enhanced Website</title>
+    <title>EvanGUTK</title>
     <link rel="stylesheet" href="style.css">
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const themeToggle = document.getElementById("theme-toggle");
             const colorPalette = document.getElementById("color-palette");
+            const root = document.documentElement;
             const navLinks = document.querySelectorAll("header nav ul li a");
             const blogSection = document.getElementById("blog");
             const projectsSection = document.getElementById("projects");
@@ -19,6 +20,8 @@
             // Theme toggle functionality
             themeToggle.addEventListener("click", () => {
                 colorPalette.style.display = colorPalette.style.display === "block" ? "none" : "block";
+                colorPalette.style.opacity = colorPalette.style.display === "block" ? "1" : "0";
+                colorPalette.style.transform = colorPalette.style.display === "block" ? "translateY(0)" : "translateY(-10px)";
             });
 
             document.addEventListener("click", (event) => {
@@ -27,13 +30,48 @@
                 }
             });
 
-            // Dark and light mode
+            // Dark and light mode with persistence
             document.getElementById("dark-mode").addEventListener("click", () => {
                 document.body.classList.add("dark");
+                localStorage.setItem("theme", "dark");
             });
 
             document.getElementById("light-mode").addEventListener("click", () => {
                 document.body.classList.remove("dark");
+                localStorage.setItem("theme", "light");
+            });
+
+            // Apply saved theme on load
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark");
+            }
+
+            // Predefined color options
+            const colorOptions = [
+                { name: "Tennessee Orange", value: "#FF8200" },
+                { name: "Green", value: "#4CAF50" },
+                { name: "Blue", value: "#007BFF" },
+                { name: "Purple", value: "#6A1B9A" },
+                { name: "Red", value: "#D32F2F" },
+            ];
+
+            // Create color buttons dynamically
+            colorOptions.forEach(color => {
+                const button = document.createElement("button");
+                button.textContent = color.name;
+                button.style.backgroundColor = color.value;
+                button.style.color = "#fff";
+                button.style.margin = "5px 0";
+                button.style.padding = "10px";
+                button.style.border = "none";
+                button.style.borderRadius = "5px";
+                button.style.cursor = "pointer";
+                button.addEventListener("click", () => {
+                    root.style.setProperty("--primary-color", color.value);
+                    document.querySelector("header").style.backgroundColor = color.value;
+                    document.querySelector("footer").style.backgroundColor = color.value;
+                });
+                colorPalette.appendChild(button);
             });
 
             // Blog entry addition (restricted to admin)
@@ -124,7 +162,7 @@
                     alert("Logged out as admin.");
                 } else {
                     const password = prompt("Enter admin password:");
-                    if (password === "admin123") {
+                    if (password === "EvanGAdmin2205") {
                         localStorage.setItem("isAdmin", "true");
                         alert("Logged in as admin.");
                     } else {
@@ -184,7 +222,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+        <p>&copy; Evan Goodman. All Rights Reserved.</p>
     </footer>
 </body>
 </html>
