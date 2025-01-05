@@ -1,201 +1,153 @@
-/* General Styles */
+/* General styles */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    background-color: #4CAF50;
+    padding: 15px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header nav ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    transition: background-color 0.5s, color 0.5s;
-}
-
-[data-theme="dark"] {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-/* Navigation Bar Styles */
-nav {
-    background-color: #333;
-    color: #fff;
-    overflow: hidden;
-    transition: background-color 0.5s;
-}
-
-[data-theme="dark"] nav {
-    background-color: #444;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     justify-content: center;
 }
 
-nav ul li {
+header nav ul li {
     margin: 0 15px;
 }
 
-nav ul li a {
-    color: #fff;
+header nav ul li a {
     text-decoration: none;
-    padding: 14px 20px;
-    display: block;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #ffcc00;
+}
+
+/* Section styling */
+main section {
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s;
 }
 
-nav ul li a:hover, nav ul li a.active {
-    background-color: #575757;
+main section h2 {
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-[data-theme="dark"] nav ul li a:hover, [data-theme="dark"] nav ul li a.active {
-    background-color: #666;
+/* Resume iframe */
+iframe {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Section Styles */
-section {
-    padding: 20px;
-    text-align: center;
-    display: none; /* Hide all sections by default */
-    transition: opacity 0.5s;
+/* Project elements */
+.project img, .project video {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-section#home {
-    background-color: #e9ecef;
-    padding: 40px;
+/* Contact section */
+#contact ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-[data-theme="dark"] section#home {
-    background-color: #1e1e1e;
+#contact ul li {
+    margin: 10px 0;
 }
 
-section h2 {
-    margin-top: 0;
-}
-
-/* Editable Sections */
-[contenteditable="true"] {
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #fff;
-    transition: background-color 0.5s;
-}
-
-[data-theme="dark"] [contenteditable="true"] {
-    background-color: #333;
-    color: #fff;
-}
-
-/* Footer Styles */
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-    text-align: center;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    transition: background-color 0.5s;
-}
-
-[data-theme="dark"] footer {
-    background-color: #444;
-}
-
-/* Resume Link Styles */
-section#resume a {
-    color: #007bff;
+#contact ul li a {
     text-decoration: none;
-}
-
-section#resume a:hover {
-    text-decoration: underline;
-}
-
-[data-theme="dark"] section#resume a {
-    color: #4da6ff;
-}
-
-[data-theme="dark"] section#resume a:hover {
-    text-decoration: underline;
-}
-
-/* Contact Email Link Styles */
-section#contact a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-section#contact a:hover {
-    text-decoration: underline;
-}
-
-[data-theme="dark"] section#contact a {
-    color: #4da6ff;
-}
-
-[data-theme="dark"] section#contact a:hover {
-    text-decoration: underline;
-}
-
-/* Light/Dark Mode Switch Styles */
-.theme-switch-wrapper {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    color: #4CAF50;
+    font-weight: bold;
     display: flex;
     align-items: center;
-    font-size: 14px;
 }
 
-.theme-switch {
-    display: inline-block;
-    height: 34px;
-    position: relative;
-    width: 60px;
+#contact ul li a img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    transition: transform 0.3s;
 }
 
-.theme-switch input {
-    display: none;
+#contact ul li a:hover img {
+    transform: scale(1.2);
 }
 
-.slider {
-    background-color: #ccc;
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: background-color 0.4s;
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
 }
 
-.slider:before {
-    background-color: #fff;
-    bottom: 4px;
-    content: "";
-    height: 26px;
-    left: 4px;
-    position: absolute;
-    transition: transform 0.4s;
-    width: 26px;
-}
-
-input:checked + .slider {
-    background-color: #66bb6a;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
+/* Theme toggle */
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
     border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
 }
 
-.theme-switch-wrapper em {
-    margin-left: 10px;
+#theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Dark mode */
+body.dark {
+    background-color: #222;
+    color: #eee;
+}
+
+body.dark header {
+    background-color: #333;
+}
+
+body.dark header nav ul li a {
+    color: #ddd;
+}
+
+body.dark header nav ul li a:hover {
+    color: #ffcc00;
+}
+
+body.dark main section {
+    background-color: #333;
+}
+
+body.dark footer {
+    background-color: #333;
 }
