@@ -273,3 +273,7 @@ footer {
     color: var(--text-color);
     background-color: var(--background-color);
 }
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
