@@ -125,7 +125,7 @@ footer {
 /* Theme toggle */
 #theme-toggle {
     position: fixed;
-    top: 20px;
+    top: 70px; /* Moved below the header */
     right: 20px;
     background-color: var(--primary-color, #4CAF50);
     color: white;
@@ -144,7 +144,7 @@ footer {
 /* Color palette */
 #color-palette {
     position: fixed;
-    top: 70px;
+    top: 120px; /* Below the theme toggle */
     right: 20px;
     display: none;
     background-color: white;
