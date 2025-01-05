@@ -9,167 +9,93 @@
         document.addEventListener("DOMContentLoaded", () => {
             const themeToggle = document.getElementById("theme-toggle");
             const colorPalette = document.getElementById("color-palette");
-            const editModeToggle = document.getElementById("edit-mode-toggle");
-            const saveChangesButton = document.getElementById("save-changes");
-            const editableSections = document.querySelectorAll("section");
             const navLinks = document.querySelectorAll("header nav ul li a");
-            const addImageButton = document.getElementById("add-image");
-            const addVideoButton = document.getElementById("add-video");
             const blogSection = document.getElementById("blog");
+            const projectsSection = document.getElementById("projects");
 
-            const editPassword = "admin123";
+            // Admin toggle for managing entries
+            const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-            // Toggle the color palette
+            // Theme toggle functionality
             themeToggle.addEventListener("click", () => {
-                if (colorPalette.style.display === "block") {
-                    colorPalette.style.display = "none";
-                } else {
-                    colorPalette.style.display = "block";
-                }
+                colorPalette.style.display = colorPalette.style.display === "block" ? "none" : "block";
             });
 
-            // Close the palette when clicking outside
             document.addEventListener("click", (event) => {
                 if (!themeToggle.contains(event.target) && !colorPalette.contains(event.target)) {
                     colorPalette.style.display = "none";
                 }
             });
 
-            // Dark Mode functionality
+            // Dark and light mode
             document.getElementById("dark-mode").addEventListener("click", () => {
                 document.body.classList.add("dark");
             });
 
-            // Light Mode functionality
             document.getElementById("light-mode").addEventListener("click", () => {
                 document.body.classList.remove("dark");
             });
 
-            // Color change functionality
-            document.querySelectorAll(".color-option").forEach(button => {
-                button.addEventListener("click", () => {
-                    const color = button.getAttribute("data-color");
-                    document.documentElement.style.setProperty("--primary-color", color);
-                    document.querySelector("header").style.backgroundColor = color;
-                    document.querySelector("footer").style.backgroundColor = color;
-                });
-            });
+            // Blog entry addition (restricted to admin)
+            if (isAdmin) {
+                const addBlogButton = document.createElement("button");
+                addBlogButton.textContent = "Add Blog Entry";
+                addBlogButton.style.marginBottom = "20px";
+                blogSection.prepend(addBlogButton);
 
-            // Enable Edit Mode with Password
-            editModeToggle.addEventListener("click", () => {
-                const isEditMode = editModeToggle.textContent.includes("Enable");
-                if (isEditMode) {
-                    const password = prompt("Enter password to enable Edit Mode:");
-                    if (password !== editPassword) {
-                        alert("Incorrect password. Access denied.");
-                        return;
+                addBlogButton.addEventListener("click", () => {
+                    const title = prompt("Enter blog title:");
+                    const date = prompt("Enter blog date:");
+                    const description = prompt("Enter blog description:");
+
+                    if (title && date && description) {
+                        const blogEntry = document.createElement("div");
+                        blogEntry.classList.add("blog-entry");
+                        blogEntry.innerHTML = `
+                            <h3>${title}</h3>
+                            <p><strong>Date:</strong> ${date}</p>
+                            <p>${description}</p>
+                            <textarea placeholder="Add your comments here..." style="width: 100%; margin-top: 10px;"></textarea>
+                        `;
+                        blogSection.appendChild(blogEntry);
                     }
-                }
-
-                editableSections.forEach((section) => {
-                    section.setAttribute("contenteditable", isEditMode);
-                    section.classList.toggle("editable", isEditMode);
                 });
-                editModeToggle.textContent = isEditMode ? "Disable Edit Mode" : "Enable Edit Mode";
-                saveChangesButton.style.display = isEditMode ? "inline-block" : "none";
-                addImageButton.style.display = isEditMode ? "inline-block" : "none";
-                addVideoButton.style.display = isEditMode ? "inline-block" : "none";
-            });
+            }
 
-            // Add Image functionality
-            addImageButton.addEventListener("click", () => {
-                const activeSection = document.querySelector("section.active");
-                const imgUrl = prompt("Enter the URL of the image:");
-                if (imgUrl) {
-                    const img = document.createElement("img");
-                    img.src = imgUrl;
-                    img.alt = "User-added content";
-                    img.style.width = "100%";
-                    img.style.margin = "10px 0";
-                    img.addEventListener("click", () => {
-                        if (confirm("Delete this image?")) {
-                            img.remove();
-                        }
-                    });
-                    activeSection.appendChild(img);
-                }
-            });
+            // Project entry addition (restricted to admin)
+            if (isAdmin) {
+                const addProjectButton = document.createElement("button");
+                addProjectButton.textContent = "Add Project";
+                addProjectButton.style.marginBottom = "20px";
+                projectsSection.prepend(addProjectButton);
 
-            // Add Video functionality
-            addVideoButton.addEventListener("click", () => {
-                const activeSection = document.querySelector("section.active");
-                const videoUrl = prompt("Enter the URL of the video:");
-                if (videoUrl) {
-                    const video = document.createElement("video");
-                    video.src = videoUrl;
-                    video.controls = true;
-                    video.style.width = "100%";
-                    video.style.margin = "10px 0";
-                    video.addEventListener("click", () => {
-                        if (confirm("Delete this video?")) {
-                            video.remove();
-                        }
-                    });
-                    activeSection.appendChild(video);
-                }
-            });
+                addProjectButton.addEventListener("click", () => {
+                    const title = prompt("Enter project title:");
+                    const description = prompt("Enter project description:");
+                    const link = prompt("Enter project link (optional):");
 
-            // Add Blog Entry functionality
-            const addBlogButton = document.createElement("button");
-            addBlogButton.textContent = "Add Blog Entry";
-            addBlogButton.style.marginBottom = "20px";
-            blogSection.prepend(addBlogButton);
-
-            addBlogButton.addEventListener("click", () => {
-                const title = prompt("Enter blog title:");
-                const date = prompt("Enter blog date:");
-                const description = prompt("Enter a short description:");
-
-                if (title && date && description) {
-                    const blogEntry = document.createElement("div");
-                    blogEntry.classList.add("blog-entry");
-                    blogEntry.innerHTML = `
-                        <h3>${title}</h3>
-                        <p><strong>Date:</strong> ${date}</p>
-                        <p>${description}</p>
-                        <textarea placeholder="Add your comments here..." style="width: 100%; margin-top: 10px;"></textarea>
-                    `;
-                    blogSection.appendChild(blogEntry);
-                }
-            });
-
-            // Save Changes functionality
-            saveChangesButton.addEventListener("click", () => {
-                editableSections.forEach((section) => {
-                    const sectionId = section.id;
-                    localStorage.setItem(sectionId, section.innerHTML);
+                    if (title && description) {
+                        const projectEntry = document.createElement("div");
+                        projectEntry.classList.add("project-entry");
+                        projectEntry.innerHTML = `
+                            <h3>${title}</h3>
+                            <p>${description}</p>
+                            ${link ? `<a href="${link}" target="_blank">View Project</a>` : ""}
+                        `;
+                        projectsSection.appendChild(projectEntry);
+                    }
                 });
-                alert("Changes saved!");
-            });
+            }
 
-            // Load Saved Changes
-            editableSections.forEach((section) => {
-                const sectionId = section.id;
-                const savedContent = localStorage.getItem(sectionId);
-                if (savedContent) {
-                    section.innerHTML = savedContent;
-                }
-            });
-
-            // Navigation functionality for tabs
+            // Navigation functionality
             navLinks.forEach(link => {
                 link.addEventListener("click", (e) => {
                     e.preventDefault();
 
-                    // Get the target section ID
                     const targetId = link.getAttribute("href").substring(1);
-
-                    // Hide all sections
-                    editableSections.forEach(section => {
+                    document.querySelectorAll("main section").forEach(section => {
                         section.style.display = "none";
                     });
-
-                    // Show the target section
                     const targetSection = document.getElementById(targetId);
                     if (targetSection) {
                         targetSection.style.display = "block";
@@ -177,14 +103,36 @@
                 });
             });
 
-            // Initially show only the home section
-            editableSections.forEach(section => {
+            // Show the home section by default
+            document.querySelectorAll("main section").forEach(section => {
                 section.style.display = "none";
             });
-            const initialSection = document.getElementById("home");
-            if (initialSection) {
-                initialSection.style.display = "block";
-            }
+            document.getElementById("home").style.display = "block";
+
+            // Admin login/logout
+            const adminToggleButton = document.createElement("button");
+            adminToggleButton.textContent = isAdmin ? "Logout Admin" : "Login as Admin";
+            adminToggleButton.style.position = "fixed";
+            adminToggleButton.style.bottom = "20px";
+            adminToggleButton.style.right = "20px";
+            adminToggleButton.style.zIndex = "1000";
+            document.body.appendChild(adminToggleButton);
+
+            adminToggleButton.addEventListener("click", () => {
+                if (isAdmin) {
+                    localStorage.removeItem("isAdmin");
+                    alert("Logged out as admin.");
+                } else {
+                    const password = prompt("Enter admin password:");
+                    if (password === "admin123") {
+                        localStorage.setItem("isAdmin", "true");
+                        alert("Logged in as admin.");
+                    } else {
+                        alert("Incorrect password.");
+                    }
+                }
+                location.reload();
+            });
         });
     </script>
 </head>
@@ -193,16 +141,6 @@
     <div id="color-palette" style="display: none; position: fixed; top: 120px; right: 20px; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         <button id="dark-mode">Dark Mode</button>
         <button id="light-mode">Light Mode</button>
-        <button class="color-option" data-color="#4CAF50">Green</button>
-        <button class="color-option" data-color="#007BFF">Blue</button>
-        <button class="color-option" data-color="#FF5722">Orange</button>
-    </div>
-
-    <div id="edit-controls" style="position: fixed; top: 20px; left: 20px; z-index: 1100;">
-        <button id="edit-mode-toggle">Enable Edit Mode</button>
-        <button id="save-changes" style="display: none;">Save Changes</button>
-        <button id="add-image" style="display: none;">Add Image</button>
-        <button id="add-video" style="display: none;">Add Video</button>
     </div>
 
     <header>
@@ -218,30 +156,30 @@
     </header>
 
     <main>
-        <section id="home" class="active">
+        <section id="home">
             <h2>Welcome to My Website</h2>
-            <p>Your one-stop place for education, aspirations, and everything about me!</p>
+            <p>Explore my projects, blogs, and more!</p>
         </section>
 
         <section id="resume">
             <h2>Resume</h2>
             <p>Download my resume: <a href="resume.pdf" download>Click here</a></p>
-            <iframe src="resume.pdf" width="100%" height="500px"></iframe>
         </section>
 
         <section id="projects">
             <h2>Projects</h2>
-            <p>Details of projects will go here.</p>
+            <p>View and manage your projects below:</p>
         </section>
 
         <section id="blog">
             <h2>Blog</h2>
-            <p>Click "Add Blog Entry" to create a new post.</p>
+            <p>Read and create blog entries:</p>
         </section>
 
         <section id="contact">
             <h2>Contact</h2>
-            <p>Contact information will go here.</p>
+            <p>Email: youremail@example.com</p>
+            <p>LinkedIn: <a href="#">Your LinkedIn</a></p>
         </section>
     </main>
 
