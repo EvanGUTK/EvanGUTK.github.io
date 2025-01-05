@@ -17,7 +17,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
 }
 
 header nav ul {
@@ -36,14 +37,14 @@ header nav ul li a {
     text-decoration: none;
     color: white;
     font-weight: bold;
-    padding: 8px 15px;
+    padding: 10px;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 header nav ul li a:hover {
     background-color: rgba(255, 255, 255, 0.2);
-    color: #ffcc00;
+    transform: scale(1.1);
 }
 
 /* Tabs styling */
@@ -60,18 +61,32 @@ main section {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
     display: none; /* Hide sections by default */
 }
 
 main section.active {
     display: block; /* Show the active section */
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 main section h2 {
     border-bottom: 2px solid var(--primary-color, #4CAF50);
     padding-bottom: 10px;
     margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Resume iframe */
@@ -79,6 +94,11 @@ iframe {
     border: none;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+iframe:hover {
+    transform: scale(1.02);
 }
 
 /* Project elements */
@@ -87,6 +107,11 @@ iframe {
     margin-top: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.project img:hover, .project video:hover {
+    transform: scale(1.05);
 }
 
 /* Contact section */
@@ -117,6 +142,11 @@ iframe {
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    transition: transform 0.3s;
+}
+
+#contact ul li a:hover img {
+    transform: scale(1.2);
 }
 
 /* Footer */
@@ -126,7 +156,8 @@ footer {
     background-color: var(--primary-color, #4CAF50);
     color: white;
     margin-top: auto; /* Ensures footer stays at the bottom */
-    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
 }
 
 /* Theme toggle */
@@ -161,6 +192,14 @@ footer {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
     z-index: 1100; /* Ensures visibility above other elements */
+    transition: opacity 0.3s, transform 0.3s;
+    opacity: 0;
+}
+
+#color-palette.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #color-palette button {
