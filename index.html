@@ -204,3 +204,98 @@
     </footer>
 </body>
 </html>
+<script></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const projectsSection = document.getElementById("projects");
+
+        // Sample projects data
+        const projects = [
+            {
+            title: "DeepAi, PeopleNET Person Detection",
+            description: "Using ML and Python to continuously detect a person for security.",
+            link: "https://github.com/EvanGUTK/DeepAI",
+            image: "https://viso.ai/wp-content/smush-webp/2022/02/people-detection-1060x596.png.webp",
+            date: "5 January 2025 - Present"
+            },
+            {
+            title: "Project 2",
+            description: "Description of project 2.",
+            link: "https://github.com/EvanGUTK/project2",
+            image: "https://via.placeholder.com/150",
+            date: "Date Placeholder"
+            },
+            {
+            title: "Project 3",
+            description: "Description of project 3.",
+            link: "https://github.com/EvanGUTK/project3",
+            image: "https://via.placeholder.com/150",
+            date: "Date Placeholder"
+            },
+            {
+            title: "Project 4",
+            description: "Description of project 4.",
+            link: "https://github.com/EvanGUTK/project4",
+            image: "https://via.placeholder.com/150",
+            date: "Date Placeholder"
+            }
+        ];
+
+
+        // Function to render projects
+        function renderProjects() {
+            projectsSection.innerHTML = `
+                <h2>Projects</h2>
+                <p>View and make comments on my past and ongoing projects:</p>
+                <div class="projects-container">
+                    ${projects.map(project => `
+                        <div class="project">
+                            <img src="${project.image}" alt="${project.title}">
+                            <h3>${project.title}</h3>
+                            <p>${project.description}</p>
+                            <a href="${project.link}" target="_blank">View Project</a>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Initial render
+        renderProjects();
+    });
+</script>
+<style>
+    .projects-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .project {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        width: 300px;
+    }
+    .project img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+    .project h3 {
+        margin: 10px 0;
+    }
+    .project a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: var(--primary-color, #007BFF);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .project a:hover {
+        background-color: darken(var(--primary-color, #007BFF), 10%);
+    }
+</style>
