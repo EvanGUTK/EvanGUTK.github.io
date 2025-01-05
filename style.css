@@ -17,6 +17,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 header nav ul {
@@ -35,10 +36,13 @@ header nav ul li a {
     text-decoration: none;
     color: white;
     font-weight: bold;
-    transition: color 0.3s;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 header nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
     color: #ffcc00;
 }
 
@@ -46,6 +50,7 @@ header nav ul li a:hover {
 main {
     margin-top: 60px; /* Prevent content from hiding under the header */
     flex: 1;
+    padding: 20px;
 }
 
 main section {
@@ -100,32 +105,34 @@ iframe {
     font-weight: bold;
     display: flex;
     align-items: center;
+    transition: color 0.3s, transform 0.3s;
+}
+
+#contact ul li a:hover {
+    color: #ff5722;
+    transform: scale(1.1);
 }
 
 #contact ul li a img {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    transition: transform 0.3s;
-}
-
-#contact ul li a:hover img {
-    transform: scale(1.2);
 }
 
 /* Footer */
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     background-color: var(--primary-color, #4CAF50);
     color: white;
     margin-top: auto; /* Ensures footer stays at the bottom */
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Theme toggle */
 #theme-toggle {
     position: fixed;
-    top: 70px; /* Moved below the header */
+    top: 70px; /* Below the header */
     right: 20px;
     background-color: var(--primary-color, #4CAF50);
     color: white;
@@ -134,11 +141,12 @@ footer {
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1100; /* Ensures visibility above other elements */
-    transition: transform 0.3s;
+    transition: transform 0.3s, background-color 0.3s;
 }
 
 #theme-toggle:hover {
     transform: scale(1.1);
+    background-color: #007bff;
 }
 
 /* Color palette */
@@ -148,7 +156,7 @@ footer {
     right: 20px;
     display: none;
     background-color: white;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
@@ -157,17 +165,21 @@ footer {
 
 #color-palette button {
     display: block;
-    width: 30px;
-    height: 30px;
-    margin: 5px;
+    width: 100%;
+    margin: 5px 0;
     border: none;
-    border-radius: 50%;
+    background-color: var(--primary-color, #4CAF50);
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    outline: none;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 #color-palette button:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    background-color: #007bff;
 }
 
 /* Dark mode */
