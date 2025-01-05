@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,29 +9,187 @@
         document.addEventListener("DOMContentLoaded", () => {
             const themeToggle = document.getElementById("theme-toggle");
             const colorPalette = document.getElementById("color-palette");
+            const closePaletteButton = document.createElement("button");
+            const darkModeButton = document.getElementById("dark-mode");
+            const lightModeButton = document.getElementById("light-mode");
+            const colorButtons = document.querySelectorAll(".color-option");
+            const editModeToggle = document.getElementById("edit-mode-toggle");
+            const saveChangesButton = document.getElementById("save-changes");
+            const editableSections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll("header nav ul li a");
 
-            // Toggle the color palette
+            const addMediaControls = document.createElement("div");
+            addMediaControls.id = "add-media-controls";
+            addMediaControls.style.display = "none";
+            addMediaControls.innerHTML = `
+                <button id="add-image">Add Image</button>
+                <button id="add-video">Add Video</button>
+            `;
+            document.getElementById("edit-controls").appendChild(addMediaControls);
+
+            const editPassword = "admin123";
+
+            // Add a close button to the color palette
+            closePaletteButton.textContent = "Close";
+            closePaletteButton.style.marginTop = "10px";
+            closePaletteButton.style.backgroundColor = "#f44336";
+            closePaletteButton.style.color = "white";
+            closePaletteButton.style.padding = "10px";
+            closePaletteButton.style.border = "none";
+            closePaletteButton.style.borderRadius = "5px";
+            closePaletteButton.style.cursor = "pointer";
+            closePaletteButton.style.width = "100%";
+            closePaletteButton.addEventListener("click", () => {
+                colorPalette.style.display = "none";
+            });
+            colorPalette.appendChild(closePaletteButton);
+
+            // Toggle dropdown visibility
             themeToggle.addEventListener("click", () => {
-                colorPalette.classList.toggle("active");
+                colorPalette.style.display = colorPalette.style.display === "block" ? "none" : "block";
             });
 
-            // Close the palette when clicking outside
-            document.addEventListener("click", (event) => {
-                if (!themeToggle.contains(event.target) && !colorPalette.contains(event.target)) {
-                    colorPalette.classList.remove("active");
+            // Dark mode functionality
+            darkModeButton.addEventListener("click", () => {
+                document.body.classList.add("dark");
+            });
+
+            // Light mode functionality
+            lightModeButton.addEventListener("click", () => {
+                document.body.classList.remove("dark");
+            });
+
+            // Change header and footer color
+            colorButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const color = button.getAttribute("data-color");
+                    document.documentElement.style.setProperty("--primary-color", color);
+                    document.querySelector("header").style.backgroundColor = color;
+                    document.querySelector("footer").style.backgroundColor = color;
+                });
+            });
+
+            // Enable Edit Mode with Password
+            editModeToggle.addEventListener("click", () => {
+                const isEditMode = editModeToggle.textContent.includes("Enable");
+                if (isEditMode) {
+                    const password = prompt("Enter password to enable Edit Mode:");
+                    if (password !== editPassword) {
+                        alert("Incorrect password. Access denied.");
+                        return;
+                    }
+                }
+
+                editableSections.forEach((section) => {
+                    section.setAttribute("contenteditable", isEditMode);
+                    section.classList.toggle("editable", isEditMode);
+                });
+                editModeToggle.textContent = isEditMode ? "Disable Edit Mode" : "Enable Edit Mode";
+                saveChangesButton.style.display = isEditMode ? "inline-block" : "none";
+                addMediaControls.style.display = isEditMode ? "block" : "none";
+            });
+
+            // Add Image
+            document.getElementById("add-image").addEventListener("click", () => {
+                const activeSection = document.querySelector("section.active");
+                const imgUrl = prompt("Enter the URL of the image:");
+                if (imgUrl) {
+                    const img = document.createElement("img");
+                    img.src = imgUrl;
+                    img.alt = "User-added content";
+                    img.style.width = "100%";
+                    img.style.margin = "10px 0";
+                    img.addEventListener("click", () => {
+                        if (confirm("Delete this image?")) {
+                            img.remove();
+                        }
+                    });
+                    activeSection.appendChild(img);
                 }
             });
+
+            // Add Video
+            document.getElementById("add-video").addEventListener("click", () => {
+                const activeSection = document.querySelector("section.active");
+                const videoUrl = prompt("Enter the URL of the video:");
+                if (videoUrl) {
+                    const video = document.createElement("video");
+                    video.src = videoUrl;
+                    video.controls = true;
+                    video.style.width = "100%";
+                    video.style.margin = "10px 0";
+                    video.addEventListener("click", () => {
+                        if (confirm("Delete this video?")) {
+                            video.remove();
+                        }
+                    });
+                    activeSection.appendChild(video);
+                }
+            });
+
+            // Save Changes
+            saveChangesButton.addEventListener("click", () => {
+                editableSections.forEach((section) => {
+                    const sectionId = section.id;
+                    localStorage.setItem(sectionId, section.innerHTML);
+                });
+                alert("Changes saved!");
+            });
+
+            // Load Saved Changes
+            editableSections.forEach((section) => {
+                const sectionId = section.id;
+                const savedContent = localStorage.getItem(sectionId);
+                if (savedContent) {
+                    section.innerHTML = savedContent;
+                }
+            });
+
+            // Navigation functionality for tabs
+            navLinks.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    // Get the target section ID
+                    const targetId = link.getAttribute("href").substring(1);
+
+                    // Hide all sections
+                    editableSections.forEach(section => {
+                        section.style.display = "none";
+                    });
+
+                    // Show the target section
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.style.display = "block";
+                    }
+                });
+            });
+
+            // Initially show only the home section
+            editableSections.forEach(section => {
+                section.style.display = "none";
+            });
+            const initialSection = document.getElementById("home");
+            if (initialSection) {
+                initialSection.style.display = "block";
+            }
         });
     </script>
 </head>
 <body>
     <div id="theme-toggle">⚙️</div>
-    <div id="color-palette" class="hidden">
+    <div id="color-palette" style="display: none; position: fixed; top: 120px; right: 20px; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         <button id="dark-mode">Dark Mode</button>
         <button id="light-mode">Light Mode</button>
         <button class="color-option" data-color="#4CAF50">Green</button>
         <button class="color-option" data-color="#007BFF">Blue</button>
         <button class="color-option" data-color="#FF5722">Orange</button>
+    </div>
+
+    <div id="edit-controls" style="position: fixed; top: 20px; left: 20px; z-index: 1100;">
+        <button id="edit-mode-toggle">Enable Edit Mode</button>
+        <button id="save-changes" style="display: none;">Save Changes</button>
     </div>
 
     <header>
