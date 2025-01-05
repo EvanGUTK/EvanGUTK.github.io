@@ -15,6 +15,7 @@
             const navLinks = document.querySelectorAll("header nav ul li a");
             const addImageButton = document.getElementById("add-image");
             const addVideoButton = document.getElementById("add-video");
+            const blogSection = document.getElementById("blog");
 
             const editPassword = "admin123";
 
@@ -110,6 +111,30 @@
                         }
                     });
                     activeSection.appendChild(video);
+                }
+            });
+
+            // Add Blog Entry functionality
+            const addBlogButton = document.createElement("button");
+            addBlogButton.textContent = "Add Blog Entry";
+            addBlogButton.style.marginBottom = "20px";
+            blogSection.prepend(addBlogButton);
+
+            addBlogButton.addEventListener("click", () => {
+                const title = prompt("Enter blog title:");
+                const date = prompt("Enter blog date:");
+                const description = prompt("Enter a short description:");
+
+                if (title && date && description) {
+                    const blogEntry = document.createElement("div");
+                    blogEntry.classList.add("blog-entry");
+                    blogEntry.innerHTML = `
+                        <h3>${title}</h3>
+                        <p><strong>Date:</strong> ${date}</p>
+                        <p>${description}</p>
+                        <textarea placeholder="Add your comments here..." style="width: 100%; margin-top: 10px;"></textarea>
+                    `;
+                    blogSection.appendChild(blogEntry);
                 }
             });
 
@@ -211,7 +236,7 @@
 
         <section id="blog">
             <h2>Blog</h2>
-            <p>Blog content will go here.</p>
+            <p>Click "Add Blog Entry" to create a new post.</p>
         </section>
 
         <section id="contact">
