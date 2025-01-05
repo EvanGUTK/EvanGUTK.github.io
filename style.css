@@ -32,7 +32,7 @@ nav ul li a {
     display: block;
 }
 
-nav ul li a:hover {
+nav ul li a:hover, nav ul li a.active {
     background-color: #575757;
 }
 
@@ -40,6 +40,7 @@ nav ul li a:hover {
 section {
     padding: 20px;
     text-align: center;
+    display: none; /* Hide all sections by default */
 }
 
 section#home {
@@ -49,6 +50,13 @@ section#home {
 
 section h2 {
     margin-top: 0;
+}
+
+/* Editable Sections */
+[contenteditable="true"] {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
 }
 
 /* Footer Styles */

@@ -10,61 +10,88 @@
     <!-- Navigation Bar -->
     <nav>
         <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#resume">Resume</a></li>
-            <li><a href="#description">Description</a></li>
-            <li><a href="#general">General</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home" onclick="openTab(event, 'home')">Home</a></li>
+            <li><a href="#resume" onclick="openTab(event, 'resume')">Resume</a></li>
+            <li><a href="#description" onclick="openTab(event, 'description')">Description</a></li>
+            <li><a href="#general" onclick="openTab(event, 'general')">General</a></li>
+            <li><a href="#projects" onclick="openTab(event, 'projects')">Projects</a></li>
+            <li><a href="#blog" onclick="openTab(event, 'blog')">Blog</a></li>
+            <li><a href="#contact" onclick="openTab(event, 'contact')">Contact</a></li>
         </ul>
     </nav>
 
     <!-- Home Section -->
-    <section id="home">
+    <section id="home" class="tab-content">
         <h1>Welcome to My Personal & University Life Website</h1>
         <p>This website showcases my journey through university and my personal projects.</p>
     </section>
 
     <!-- Resume Section -->
-    <section id="resume">
+    <section id="resume" class="tab-content">
         <h2>Resume</h2>
         <p>You can download my resume <a href="path/to/your/resume.pdf" download>here</a>.</p>
     </section>
 
     <!-- Description Section -->
-    <section id="description">
+    <section id="description" class="tab-content">
         <h2>About Me</h2>
         <p>This section describes my personal background and interests.</p>
     </section>
 
     <!-- General Section -->
-    <section id="general">
+    <section id="general" class="tab-content">
         <h2>General Information</h2>
         <p>General information about my university life and experiences.</p>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects">
+    <section id="projects" class="tab-content" contenteditable="true">
         <h2>Projects</h2>
         <p>Details about my personal and university projects.</p>
     </section>
 
     <!-- Blog Section -->
-    <section id="blog">
+    <section id="blog" class="tab-content" contenteditable="true">
         <h2>Blog</h2>
         <p>Read my blog posts about university life and personal experiences.</p>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
+    <section id="contact" class="tab-content">
         <h2>Contact</h2>
         <p>Feel free to reach out to me via email: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Evan Goodman. All rights reserved.</p>
+        <p>&copy; 2025 Your Name. All rights reserved.</p>
     </footer>
+
+    <!-- JavaScript for Tab Navigation -->
+    <script>
+        function openTab(evt, tabName) {
+            // Get all elements with class="tab-content" and hide them
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByTagName("a");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Show the default tab
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementsByClassName("tab-content")[0].style.display = "block";
+        });
+    </script>
 </body>
 </html>
