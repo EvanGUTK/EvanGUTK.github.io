@@ -1,248 +1,81 @@
-/* General styles */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Enhanced Website</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeToggle = document.getElementById("theme-toggle");
+            const colorPalette = document.getElementById("color-palette");
 
-header {
-    background-color: var(--primary-color, #4CAF50);
-    padding: 15px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s;
-}
+            // Toggle the color palette
+            themeToggle.addEventListener("click", () => {
+                colorPalette.classList.toggle("active");
+            });
 
-header nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-}
+            // Close the palette when clicking outside
+            document.addEventListener("click", (event) => {
+                if (!themeToggle.contains(event.target) && !colorPalette.contains(event.target)) {
+                    colorPalette.classList.remove("active");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="theme-toggle">⚙️</div>
+    <div id="color-palette" class="hidden">
+        <button id="dark-mode">Dark Mode</button>
+        <button id="light-mode">Light Mode</button>
+        <button class="color-option" data-color="#4CAF50">Green</button>
+        <button class="color-option" data-color="#007BFF">Blue</button>
+        <button class="color-option" data-color="#FF5722">Orange</button>
+    </div>
 
-header nav ul li {
-    margin: 0 15px;
-}
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#resume">Resume</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-header nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    <main>
+        <section id="home" class="active">
+            <h2>Welcome to My Website</h2>
+            <p>Your one-stop place for education, aspirations, and everything about me!</p>
+        </section>
 
-header nav ul li a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-}
+        <section id="resume">
+            <h2>Resume</h2>
+            <p>Download my resume: <a href="resume.pdf" download>Click here</a></p>
+            <iframe src="resume.pdf" width="100%" height="500px"></iframe>
+        </section>
 
-/* Tabs styling */
-main {
-    margin-top: 60px; /* Prevent content from hiding under the header */
-    flex: 1;
-    padding: 20px;
-}
+        <section id="projects">
+            <h2>Projects</h2>
+            <p>Details of projects will go here.</p>
+        </section>
 
-main section {
-    padding: 40px;
-    margin: 20px auto;
-    max-width: 900px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s;
-    display: none; /* Hide sections by default */
-}
+        <section id="blog">
+            <h2>Blog</h2>
+            <p>Blog content will go here.</p>
+        </section>
 
-main section.active {
-    display: block; /* Show the active section */
-    animation: fadeIn 0.5s ease-in-out;
-}
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Contact information will go here.</p>
+        </section>
+    </main>
 
-main section h2 {
-    border-bottom: 2px solid var(--primary-color, #4CAF50);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    transition: border-color 0.3s;
-}
-
-/* Animation for smooth transitions */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Resume iframe */
-iframe {
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-
-iframe:hover {
-    transform: scale(1.02);
-}
-
-/* Project elements */
-.project img, .project video {
-    max-width: 100%;
-    margin-top: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-}
-
-.project img:hover, .project video:hover {
-    transform: scale(1.05);
-}
-
-/* Contact section */
-#contact ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-#contact ul li {
-    margin: 10px 0;
-}
-
-#contact ul li a {
-    text-decoration: none;
-    color: var(--primary-color, #4CAF50);
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    transition: color 0.3s, transform 0.3s;
-}
-
-#contact ul li a:hover {
-    color: #ff5722;
-    transform: scale(1.1);
-}
-
-#contact ul li a img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    transition: transform 0.3s;
-}
-
-#contact ul li a:hover img {
-    transform: scale(1.2);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: var(--primary-color, #4CAF50);
-    color: white;
-    margin-top: auto; /* Ensures footer stays at the bottom */
-    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s;
-}
-
-/* Theme toggle */
-#theme-toggle {
-    position: fixed;
-    top: 70px; /* Below the header */
-    right: 20px;
-    background-color: var(--primary-color, #4CAF50);
-    color: white;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1100; /* Ensures visibility above other elements */
-    transition: transform 0.3s, background-color 0.3s;
-}
-
-#theme-toggle:hover {
-    transform: scale(1.1);
-    background-color: #007bff;
-}
-
-/* Color palette */
-#color-palette {
-    position: fixed;
-    top: 120px; /* Below the theme toggle */
-    right: 20px;
-    display: none;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    z-index: 1100; /* Ensures visibility above other elements */
-    transition: opacity 0.3s, transform 0.3s;
-    opacity: 0;
-}
-
-#color-palette.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-#color-palette button {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
-    border: none;
-    background-color: var(--primary-color, #4CAF50);
-    color: white;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-#color-palette button:hover {
-    transform: scale(1.05);
-    background-color: #007bff;
-}
-
-/* Dark mode */
-body.dark {
-    background-color: #222;
-    color: #eee;
-}
-
-body.dark header {
-    background-color: #333;
-}
-
-body.dark header nav ul li a {
-    color: #ddd;
-}
-
-body.dark header nav ul li a:hover {
-    color: #ffcc00;
-}
-
-body.dark main section {
-    background-color: #333;
-}
-
-body.dark footer {
-    background-color: #333;
-}
+    <footer>
+        <p>&copy; 2025 Your Name. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
