@@ -9,9 +9,25 @@
         document.addEventListener("DOMContentLoaded", () => {
             const themeToggle = document.getElementById("theme-toggle");
             const colorPalette = document.getElementById("color-palette");
+            const closePaletteButton = document.createElement("button");
             const darkModeButton = document.getElementById("dark-mode");
             const lightModeButton = document.getElementById("light-mode");
             const colorButtons = document.querySelectorAll(".color-option");
+
+            // Add a close button to the color palette
+            closePaletteButton.textContent = "Close";
+            closePaletteButton.style.marginTop = "10px";
+            closePaletteButton.style.backgroundColor = "#f44336";
+            closePaletteButton.style.color = "white";
+            closePaletteButton.style.padding = "10px";
+            closePaletteButton.style.border = "none";
+            closePaletteButton.style.borderRadius = "5px";
+            closePaletteButton.style.cursor = "pointer";
+            closePaletteButton.style.width = "100%";
+            closePaletteButton.addEventListener("click", () => {
+                colorPalette.style.display = "none";
+            });
+            colorPalette.appendChild(closePaletteButton);
 
             // Toggle dropdown visibility
             themeToggle.addEventListener("click", () => {
@@ -42,7 +58,7 @@
 </head>
 <body>
     <div id="theme-toggle">⚙️</div>
-    <div id="color-palette" style="display: none; position: fixed; top: 70px; right: 20px; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    <div id="color-palette" style="display: none; position: fixed; top: 120px; right: 20px; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         <button id="dark-mode">Dark Mode</button>
         <button id="light-mode">Light Mode</button>
         <button class="color-option" data-color="#4CAF50">Green</button>
