@@ -39,7 +39,11 @@ header nav ul li a:hover {
     color: #ffcc00;
 }
 
-/* Section styling */
+/* Tabs styling */
+main {
+    margin-top: 60px; /* Prevent content from hiding under the header */
+}
+
 main section {
     padding: 40px;
     margin: 20px auto;
@@ -48,6 +52,11 @@ main section {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s;
+    display: none; /* Hide sections by default */
+}
+
+main section.active {
+    display: block; /* Show the active section */
 }
 
 main section h2 {
@@ -123,6 +132,24 @@ footer {
 }
 
 #theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Color toggle */
+#color-toggle {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+#color-toggle:hover {
     transform: scale(1.1);
 }
 
