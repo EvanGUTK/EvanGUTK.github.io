@@ -16,6 +16,7 @@
             const editModeToggle = document.getElementById("edit-mode-toggle");
             const saveChangesButton = document.getElementById("save-changes");
             const editableSections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll("header nav ul li a");
 
             // Password for Edit Mode
             const editPassword = "admin123";
@@ -96,6 +97,36 @@
                     section.innerHTML = savedContent;
                 }
             });
+
+            // Navigation functionality for tabs
+            navLinks.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    // Get the target section ID
+                    const targetId = link.getAttribute("href").substring(1);
+
+                    // Hide all sections
+                    editableSections.forEach(section => {
+                        section.style.display = "none";
+                    });
+
+                    // Show the target section
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.style.display = "block";
+                    }
+                });
+            });
+
+            // Initially show only the home section
+            editableSections.forEach(section => {
+                section.style.display = "none";
+            });
+            const initialSection = document.getElementById("home");
+            if (initialSection) {
+                initialSection.style.display = "block";
+            }
         });
     </script>
 </head>
