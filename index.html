@@ -5,11 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Enhanced Website</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeToggle = document.getElementById("theme-toggle");
+            const colorPalette = document.getElementById("color-palette");
+            const darkModeButton = document.getElementById("dark-mode");
+            const lightModeButton = document.getElementById("light-mode");
+            const colorButtons = document.querySelectorAll(".color-option");
+
+            // Toggle dropdown visibility
+            themeToggle.addEventListener("click", () => {
+                colorPalette.style.display = colorPalette.style.display === "block" ? "none" : "block";
+            });
+
+            // Dark mode functionality
+            darkModeButton.addEventListener("click", () => {
+                document.body.classList.add("dark");
+            });
+
+            // Light mode functionality
+            lightModeButton.addEventListener("click", () => {
+                document.body.classList.remove("dark");
+            });
+
+            // Change header and footer color
+            colorButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const color = button.getAttribute("data-color");
+                    document.documentElement.style.setProperty("--primary-color", color);
+                    document.querySelector("header").style.backgroundColor = color;
+                    document.querySelector("footer").style.backgroundColor = color;
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <div id="theme-toggle">⚙️</div>
-    <div id="color-palette">
+    <div id="color-palette" style="display: none; position: fixed; top: 70px; right: 20px; background: white; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         <button id="dark-mode">Dark Mode</button>
         <button id="light-mode">Light Mode</button>
         <button class="color-option" data-color="#4CAF50">Green</button>
