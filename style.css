@@ -185,15 +185,16 @@ footer {
     display: none;
     opacity: 0;
     transform: translateY(-10px);
-    transition: opacity 0.3s, transform 0.3s;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     position: fixed;
     top: 120px; /* Below the theme toggle */
     right: 20px;
-    background: white;
+    background: #ffffff; /* White background for visibility */
+    color: #333; /* Text color */
     border: 1px solid #ccc;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 20px;
     z-index: 1000;
 }
 
@@ -203,23 +204,24 @@ footer {
     transform: translateY(0);
 }
 
+/* Buttons inside the color palette */
 #color-palette button {
-    display: block;
     width: 100%;
+    padding: 10px;
     margin: 5px 0;
+    font-size: 14px;
+    font-weight: bold;
     border: none;
+    border-radius: 5px;
     background-color: var(--primary-color, #4CAF50);
     color: white;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 #color-palette button:hover {
-    transform: scale(1.05);
     background-color: #007bff;
+    transform: scale(1.05);
 }
 
 /* Dark mode */
