@@ -17,6 +17,9 @@
             const saveChangesButton = document.getElementById("save-changes");
             const editableElements = document.querySelectorAll("section");
 
+            // Password for Edit Mode
+            const editPassword = "admin123";
+
             // Add a close button to the color palette
             closePaletteButton.textContent = "Close";
             closePaletteButton.style.marginTop = "10px";
@@ -57,15 +60,23 @@
                 });
             });
 
-            // Enable Edit Mode
+            // Enable Edit Mode with Password
             editModeToggle.addEventListener("click", () => {
-                const editMode = editModeToggle.textContent.includes("Enable");
+                const isEditMode = editModeToggle.textContent.includes("Enable");
+                if (isEditMode) {
+                    const password = prompt("Enter password to enable Edit Mode:");
+                    if (password !== editPassword) {
+                        alert("Incorrect password. Access denied.");
+                        return;
+                    }
+                }
+
                 editableElements.forEach((element) => {
-                    element.setAttribute("contenteditable", editMode);
-                    element.classList.toggle("editable", editMode);
+                    element.setAttribute("contenteditable", isEditMode);
+                    element.classList.toggle("editable", isEditMode);
                 });
-                editModeToggle.textContent = editMode ? "Disable Edit Mode" : "Enable Edit Mode";
-                saveChangesButton.style.display = editMode ? "inline-block" : "none";
+                editModeToggle.textContent = isEditMode ? "Disable Edit Mode" : "Enable Edit Mode";
+                saveChangesButton.style.display = isEditMode ? "inline-block" : "none";
             });
 
             // Save Changes
