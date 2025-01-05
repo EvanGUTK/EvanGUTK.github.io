@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EvanGUTK</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .content-section {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .content-section.active {
+            opacity: 1;
+        }
+    </style>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const themeToggle = document.getElementById("theme-toggle");
@@ -132,20 +141,20 @@
 
                     const targetId = link.getAttribute("href").substring(1);
                     document.querySelectorAll("main section").forEach(section => {
-                        section.style.display = "none";
+                        section.classList.remove("active");
                     });
                     const targetSection = document.getElementById(targetId);
                     if (targetSection) {
-                        targetSection.style.display = "block";
+                        targetSection.classList.add("active");
                     }
                 });
             });
 
             // Show the home section by default
             document.querySelectorAll("main section").forEach(section => {
-                section.style.display = "none";
+                section.classList.remove("active");
             });
-            document.getElementById("home").style.display = "block";
+            document.getElementById("home").classList.add("active");
 
             // Admin login/logout
             const adminToggleButton = document.createElement("button");
@@ -228,34 +237,34 @@
     </header>
 
     <main style="text-align: center;">
-        <section id="home">
+        <section id="home" class="content-section active">
             <h2>Welcome to My Website</h2>
             <p style="font-size: 2em; font-weight: bold;">Evan Goodman</p>
-        <div style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center; margin-top: 20px;"></div>
             <img src="https://i.ibb.co/CzgwwG5/1718310550701.jpg" alt="Evan Goodman" style="border-radius: 50%; width: 200px; height: 200px;">
-            <p style="font-size: 1.2em; margin-top: 10px;">
+            <p style="font-size: 1.2em; margin-top: 10px;"></p>
             Junior at the University of Tennessee studying Artificial Intelligence with a minor in statistics. I am passionate about innovative technology through A.I., engineering, and medical advancements. Explore my website where you can view my blog, projects, and learn more about me.
             </p>
         </div>
         </section>
 
-        <section id="resume">
+        <section id="resume" class="content-section">
             <h2>Resume</h2>
             <p>Download my resume: <a href="https://media.licdn.com/dms/document/media/v2/D562DAQFDSilhiFqWRg/profile-treasury-document-pdf-analyzed/profile-treasury-document-pdf-analyzed/0/1734927496541?e=1736985600&v=beta&t=Emj84SuraVl-08-YK8ksza7qpeCfFk30yEsTxeyca6k" target="_blank" download>Click here</a></p>
             <iframe src="https://media.licdn.com/dms/document/media/v2/D562DAQFDSilhiFqWRg/profile-treasury-document-pdf-analyzed/profile-treasury-document-pdf-analyzed/0/1734927496541?e=1736985600&v=beta&t=Emj84SuraVl-08-YK8ksza7qpeCfFk30yEsTxeyca6k" width="100%" height="600px"></iframe>
         </section>
 
-        <section id="projects">
+        <section id="projects" class="content-section">
             <h2>Projects</h2>
             <p>View and make comments on my past and ongoing projects:</p>
         </section>
 
-        <section id="blog">
+        <section id="blog" class="content-section">
             <h2>Blog</h2>
             <p>Stay updated on my current ideas and what I am thinking at the time:</p>
         </section>
 
-        <section id="contact">
+        <section id="contact" class="content-section">
             <h2 style="text-align: center;">Contact</h2>
             <p style="font-size: 1.2em; text-align: center;">Email: evaggood@vols.utk.edu</p>
             <p style="font-size: 1.2em; text-align: center;">LinkedIn: <a href="https://www.linkedin.com/in/evan-goodman-089762244/" target="_blank"><img src="https://brandlogos.net/wp-content/uploads/2016/06/linkedin-logo-512x512.png" alt="LinkedIn" style="width: 30px; height: 30px; vertical-align: middle;"> Evan Goodman</a></p>
@@ -280,4 +289,4 @@
         </p>
     </footer>
 </body>
-</html>
+</html></a>
