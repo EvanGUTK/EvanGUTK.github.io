@@ -213,9 +213,6 @@
                     body.dark .timeline::after {
                         background-color: #ffffff;
                     }
-                    body.dark .timeline::after {
-                        background-color: #ffffff;
-                    }
 
                     .timeline-item {
                         padding: 10px 30px;
@@ -223,6 +220,9 @@
                         background-color: inherit;
                         width: 50%;
                         box-sizing: border-box;
+                        opacity: 0;
+                        transform: translateY(50px);
+                        transition: all 0.5s ease-in-out;
                     }
                     .timeline-item::after {
                         content: '';
@@ -244,11 +244,48 @@
                     }
                     .timeline-item:nth-child(even) {
                         left: 50%;
-                        text-align: left
+                        text-align: left;
                     }
                     .timeline-item:nth-child(even)::after {
                         left: -12px;
                     }
+                    .timeline-item.active {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                    .timeline-item.active .timeline-content {
+                        animation: pulse 2s infinite;
+                    }
+                    @keyframes pulse {
+                        0% {
+                            transform: scale(1);
+                        }
+                        50% {
+                            transform: scale(1.05);
+                        }
+                        100% {
+                            transform: scale(1);
+                        }
+                    }
+                </style>
+
+                <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                        const timelineItems = document.querySelectorAll(".timeline-item");
+
+                        const observer = new IntersectionObserver(entries => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add("active");
+                                }
+                            });
+                        }, { threshold: 0.5 });
+
+                        timelineItems.forEach(item => {
+                            observer.observe(item);
+                        });
+                    });
+                </script>
                 </style>
                 </style>
             </p>
