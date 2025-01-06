@@ -467,7 +467,11 @@
             link: "https://github.com/EvanGUTK/DeepAI",
             image: "https://viso.ai/wp-content/smush-webp/2022/02/people-detection-1060x596.png.webp",
             date: "5 January 2025 - Present",
-            moreInfo: "This project involves using machine learning algorithms to detect people in real-time for security purposes. The system is built using Python and various ML libraries."
+            moreInfo: "This project involves using machine learning algorithms to detect people in real-time for security purposes. The system is built using Python and various ML libraries.",
+            media: [
+                { type: "image", src: "https://viso.ai/wp-content/smush-webp/2022/02/people-detection-1060x596.png.webp" },
+                { type: "video", src: "https://rr5---sn-vgqsknsk.googlevideo.com/videoplayback?expire=1736154351&ei=j0h7Z6XhFs7s6dsPyqOsyA4&ip=45.133.171.16&id=o-AJxSUDVNEff4ha_Fypr0xZwHzKt9JgmAumqN5cbfE8WH&itag=137&aitags=134%2C136%2C137%2C160%2C243&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&bui=AfMhrI8vRm8HwUP-uNHsS2NfAOMR_eNC2XVA8djyTIjpgA_Ffw0mW-O0CAR4uASHQX9C0sTTh7gu0NDO&spc=x-caUIbvaM7ePGRU9EtL2sB9jyLZx0MVNzj52lyvfubjRjcKJQ&vprv=1&svpuc=1&mime=video%2Fmp4&ns=V96g_4rQOxWwWQgS59Wl3wYQ&rqh=1&gir=yes&clen=23809082&dur=51.241&lmt=1736132738407623&keepalive=yes&fexp=24350590,24350737,24350827,24350851,51326932,51335594,51355912,51371294&c=WEB&sefc=1&txp=6209224&n=che_GRoSPHaiCQ&sparams=expire%2Cei%2Cip%2Cid%2Caitags%2Csource%2Crequiressl%2Cxpc%2Cbui%2Cspc%2Cvprv%2Csvpuc%2Cmime%2Cns%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=AJfQdSswRAIgcBK93mIVU_LpA3zil9MuNW1ZQMx0NbB0risy8MiWKA8CICtRJ5c3Nn7Knz0DIJXusQzmFKJeQeP0cP5eR7xCsEpa&redirect_counter=1&cm2rm=sn-4g5ekz7z&rrc=80&req_id=660a0e2c4a07a3ee&cms_redirect=yes&cmsv=e&met=1736132756,&mh=a1&mip=2603:6011:6d3d:4c1f:9d88:6dc3:9059:4d3d&mm=34&mn=sn-vgqsknsk&ms=ltu&mt=1736132427&mv=m&mvi=5&pl=40&rms=ltu,au&lsparams=met,mh,mip,mm,mn,ms,mv,mvi,pl,rms&lsig=AGluJ3MwRQIhAOuNsIpQSPsdcFIrv3fsqlbOguhr1f7GBQX_9wJ2COyWAiBMHP1pJRNDD81YY-s7jJElVO_a4vZI2LndK8YM72c5QQ%3D%3D" }
+            ]
             },
             {
             title: "Project 2",
@@ -475,7 +479,10 @@
             link: "https://github.com/EvanGUTK/project2",
             image: "https://via.placeholder.com/150",
             date: "Date Placeholder",
-            moreInfo: "More extensive information about project 2."
+            moreInfo: "More extensive information about project 2.",
+            media: [
+                { type: "image", src: "https://via.placeholder.com/150" }
+            ]
             },
             {
             title: "Project 3",
@@ -483,7 +490,10 @@
             link: "https://github.com/EvanGUTK/project3",
             image: "https://via.placeholder.com/150",
             date: "Date Placeholder",
-            moreInfo: "More extensive information about project 3."
+            moreInfo: "More extensive information about project 3.",
+            media: [
+                { type: "image", src: "https://via.placeholder.com/150" }
+            ]
             },
             {
             title: "Project 4",
@@ -491,7 +501,10 @@
             link: "https://github.com/EvanGUTK/project4",
             image: "https://via.placeholder.com/150",
             date: "Date Placeholder",
-            moreInfo: "More extensive information about project 4."
+            moreInfo: "More extensive information about project 4.",
+            media: [
+                { type: "image", src: "https://via.placeholder.com/150" }
+            ]
             }
         ];
 
@@ -508,7 +521,7 @@
                     <p>${project.description}</p>
                     <p class="project-date">${project.date}</p>
                     <a href="${project.link}" target="_blank">View Project</a>
-                    <button class="view-more" data-info="${project.moreInfo}">View More</button>
+                    <button class="view-more" data-info="${project.moreInfo}" data-media='${JSON.stringify(project.media)}'>View More</button>
                 </div>
                 `).join('')}
             </div>
@@ -614,8 +627,16 @@
 
             viewMoreButtons.forEach(button => {
             button.addEventListener("click", () => {
+                const media = JSON.parse(button.getAttribute("data-media"));
                 moreInfoModal.style.display = "block";
-                moreInfoContent.textContent = button.getAttribute("data-info");
+                moreInfoContent.innerHTML = `
+                <div class="modal-left">
+                    ${media.map(item => item.type === "image" ? `<img src="${item.src}" alt="Media" class="modal-media">` : `<video src="${item.src}" controls class="modal-media"></video>`).join('')}
+                </div>
+                <div class="modal-right">
+                    <p>${button.getAttribute("data-info")}</p>
+                </div>
+                `;
             });
             });
 
@@ -749,11 +770,31 @@
         #more-info-modal .modal-content {
             max-width: 80%;
             max-height: 80%;
-            background-color: #fff;
+            background-color: #000000;
             padding: 20px;
             border-radius: 10px;
-            color: #000;
+            color: #ffffff;
+            display: flex;
+            gap: 20px;
         }
+        .modal-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .modal-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .modal-media {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+        }
+        </style>
         </style>
         </style>
         </style>
