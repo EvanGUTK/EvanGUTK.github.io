@@ -115,15 +115,21 @@
             document.getElementById("home").classList.add("active");
 
             // Clock functionality
+            let is24HourFormat = false;
+
             function updateClock() {
                 const now = new Date();
                 let hours = now.getHours();
                 const minutes = now.getMinutes();
                 const seconds = now.getSeconds();
                 const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
-                const strTime = `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+                if (!is24HourFormat) {
+                    hours = hours % 12;
+                    hours = hours ? hours : 12; // the hour '0' should be '12'
+                }
+                const strTime = is24HourFormat
+                    ? `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+                    : `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
                 document.getElementById('clock').textContent = strTime;
             }
             setInterval(updateClock, 1000);
@@ -147,6 +153,16 @@
 
             // Initial call to set clock color based on default theme
             updateClockColor();
+
+            // Toggle 12/24 hour format
+            const hourFormatToggle = document.createElement('button');
+            hourFormatToggle.textContent = 'Toggle 12/24 Hour';
+            hourFormatToggle.style.marginTop = '10px';
+            hourFormatToggle.addEventListener('click', () => {
+                is24HourFormat = !is24HourFormat;
+                updateClock();
+            });
+            document.getElementById('color-palette').appendChild(hourFormatToggle);
         });
     </script>
 </head>
