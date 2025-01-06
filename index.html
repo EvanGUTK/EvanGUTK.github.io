@@ -128,6 +128,25 @@
             }
             setInterval(updateClock, 1000);
             updateClock(); // initial call to display clock immediately
+
+            // Update clock color based on theme
+            function updateClockColor() {
+                const clock = document.getElementById('clock');
+                if (document.body.classList.contains('dark')) {
+                    clock.style.color = '#fff';
+                    clock.style.borderColor = '#fff';
+                } else {
+                    clock.style.color = '#000';
+                    clock.style.borderColor = '#000';
+                }
+            }
+
+            // Call updateClockColor whenever the theme is changed
+            document.getElementById('dark-mode').addEventListener('click', updateClockColor);
+            document.getElementById('light-mode').addEventListener('click', updateClockColor);
+
+            // Initial call to set clock color based on default theme
+            updateClockColor();
         });
     </script>
 </head>
