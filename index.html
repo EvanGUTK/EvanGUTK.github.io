@@ -466,28 +466,32 @@
             description: "Using ML and Python to continuously detect a person for security.",
             link: "https://github.com/EvanGUTK/DeepAI",
             image: "https://viso.ai/wp-content/smush-webp/2022/02/people-detection-1060x596.png.webp",
-            date: "5 January 2025 - Present"
+            date: "5 January 2025 - Present",
+            moreInfo: "This project involves using machine learning algorithms to detect people in real-time for security purposes. The system is built using Python and various ML libraries."
             },
             {
             title: "Project 2",
             description: "Description of project 2.",
             link: "https://github.com/EvanGUTK/project2",
             image: "https://via.placeholder.com/150",
-            date: "Date Placeholder"
+            date: "Date Placeholder",
+            moreInfo: "More extensive information about project 2."
             },
             {
             title: "Project 3",
             description: "Description of project 3.",
             link: "https://github.com/EvanGUTK/project3",
             image: "https://via.placeholder.com/150",
-            date: "Date Placeholder"
+            date: "Date Placeholder",
+            moreInfo: "More extensive information about project 3."
             },
             {
             title: "Project 4",
             description: "Description of project 4.",
             link: "https://github.com/EvanGUTK/project4",
             image: "https://via.placeholder.com/150",
-            date: "Date Placeholder"
+            date: "Date Placeholder",
+            moreInfo: "More extensive information about project 4."
             }
         ];
 
@@ -504,6 +508,7 @@
                     <p>${project.description}</p>
                     <p class="project-date">${project.date}</p>
                     <a href="${project.link}" target="_blank">View Project</a>
+                    <button class="view-more" data-info="${project.moreInfo}">View More</button>
                 </div>
                 `).join('')}
             </div>
@@ -511,6 +516,10 @@
                 <span class="close">&times;</span>
                 <img class="modal-content" id="modal-image">
                 <div id="joystick" class="joystick"></div>
+            </div>
+            <div id="more-info-modal" class="modal">
+                <span class="close">&times;</span>
+                <div class="modal-content" id="more-info-content"></div>
             </div>
             `;
 
@@ -597,6 +606,29 @@
             projectItems.forEach(item => {
             observer.observe(item);
             });
+
+            // View more functionality
+            const viewMoreButtons = document.querySelectorAll(".view-more");
+            const moreInfoModal = document.getElementById("more-info-modal");
+            const moreInfoContent = document.getElementById("more-info-content");
+
+            viewMoreButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                moreInfoModal.style.display = "block";
+                moreInfoContent.textContent = button.getAttribute("data-info");
+            });
+            });
+
+            const closeMoreInfoModal = moreInfoModal.querySelector(".close");
+            closeMoreInfoModal.addEventListener("click", () => {
+            moreInfoModal.style.display = "none";
+            });
+
+            moreInfoModal.addEventListener("click", (e) => {
+            if (e.target === moreInfoModal) {
+                moreInfoModal.style.display = "none";
+            }
+            });
         }
 
         // Initial render
@@ -629,7 +661,7 @@
         .project h3 {
             margin: 10px 0;
         }
-        .project a {
+        .project a, .project .view-more {
             display: inline-block;
             margin-top: 10px;
             padding: 10px 20px;
@@ -637,8 +669,9 @@
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
+            cursor: pointer;
         }
-        .project a:hover {
+        .project a:hover, .project .view-more:hover {
             background-color: darken(var(--primary-color, #007BFF), 10%);
         }
         .project-date {
@@ -703,6 +736,25 @@
             opacity: 0;
             transform: translateY(50px);
         }
+        .view-more {
+            background-color: var(--primary-color, #007BFF);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .view-more:hover {
+            background-color: darken(var(--primary-color, #007BFF), 10%);
+        }
+        #more-info-modal .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            color: #000;
+        }
+        </style>
         </style>
         </style>
 </style>
