@@ -155,8 +155,25 @@
         <section id="home" class="content-section active">
             <h2>Welcome to My Website</h2>
             <p style="font-size: 2em; font-weight: bold;">Evan Goodman</p>
+            <h2>*Click me</h2>
             <div style="text-align: center; margin-top: 20px;"></div>
-            <img src="https://i.ibb.co/CzgwwG5/1718310550701.jpg" alt="Evan Goodman" style="border-radius: 50%; width: 200px; height: 200px;">
+            <img src="https://i.ibb.co/CzgwwG5/1718310550701.jpg" alt="Evan Goodman" class="profile-pic" style="border-radius: 50%; width: 200px; height: 200px; cursor: pointer;">
+            <style>
+                .profile-pic {
+                    transition: transform 1s ease-in-out;
+                }
+                .profile-pic.rotate {
+                    transform: rotate(360deg);
+                }
+            </style>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const profilePic = document.querySelector(".profile-pic");
+                    profilePic.addEventListener("click", () => {
+                        profilePic.classList.toggle("rotate");
+                    });
+                });
+            </script>
             <p style="font-size: 1.2em; margin-top: 10px;">
                 Junior at the University of Tennessee studying Artificial Intelligence with a minor in statistics. I am passionate about innovative technology through A.I., engineering, and medical advancements. Explore my website where you can view my blog, projects, and learn more about me.
                 <div id="education-timeline" style="margin-top: 40px;">
@@ -253,19 +270,24 @@
                         opacity: 1;
                         transform: translateY(0);
                     }
+                    .timeline-item.inactive {
+                        opacity: 0;
+                        transform: translateY(50px);
+                    }
                     .timeline-item.active .timeline-content {
                         animation: pulse 2s infinite;
                     }
                     @keyframes pulse {
-                        0% {
+                        0%, 100% {
                             transform: scale(1);
                         }
                         50% {
                             transform: scale(1.05);
                         }
-                        100% {
-                            transform: scale(1);
-                        }
+                    }
+                    .timeline-item.active .timeline-content {
+                        animation: pulse 2s infinite;
+                        animation-fill-mode: forwards;
                     }
                 </style>
 
@@ -277,12 +299,35 @@
                             entries.forEach(entry => {
                                 if (entry.isIntersecting) {
                                     entry.target.classList.add("active");
+                                    entry.target.classList.remove("inactive");
+                                    entry.target.querySelector('.timeline-content').style.animation = 'none';
+                                    setTimeout(() => {
+                                        entry.target.querySelector('.timeline-content').style.animation = '';
+                                    }, 0);
+                                } else {
+                                    entry.target.classList.remove("active");
+                                    entry.target.classList.add("inactive");
                                 }
                             });
                         }, { threshold: 0.5 });
 
                         timelineItems.forEach(item => {
                             observer.observe(item);
+                        });
+
+                        // Reset animation when a new entity is loaded
+                        const navLinks = document.querySelectorAll("header nav ul li a");
+                        navLinks.forEach(link => {
+                            link.addEventListener("click", () => {
+                                timelineItems.forEach(item => {
+                                    item.classList.remove("active");
+                                    item.classList.add("inactive");
+                                    item.querySelector('.timeline-content').style.animation = 'none';
+                                    setTimeout(() => {
+                                        item.querySelector('.timeline-content').style.animation = '';
+                                    }, 0);
+                                });
+                            });
                         });
                     });
                 </script>
