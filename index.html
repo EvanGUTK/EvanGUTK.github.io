@@ -491,61 +491,218 @@
             }
         ];
 
-
         // Function to render projects
         function renderProjects() {
             projectsSection.innerHTML = `
-                <h2>Projects</h2>
-                <p>View and make comments on my past and ongoing projects:</p>
-                <div class="projects-container">
-                    ${projects.map(project => `
-                        <div class="project">
-                            <img src="${project.image}" alt="${project.title}">
-                            <h3>${project.title}</h3>
-                            <p>${project.description}</p>
-                            <a href="${project.link}" target="_blank">View Project</a>
-                        </div>
-                    `).join('')}
+            <h2>Projects</h2>
+            <p>View and make comments on my past and ongoing projects:</p>
+            <div class="projects-container">
+                ${projects.map(project => `
+                <div class="project inactive">
+                    <img src="${project.image}" alt="${project.title}" class="project-image">
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                    <p class="project-date">${project.date}</p>
+                    <a href="${project.link}" target="_blank">View Project</a>
                 </div>
+                `).join('')}
+            </div>
+            <div id="image-modal" class="modal">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="modal-image">
+                <div id="joystick" class="joystick"></div>
+            </div>
             `;
+
+            // Add event listeners for image click
+            const images = document.querySelectorAll(".project-image");
+            const modal = document.getElementById("image-modal");
+            const modalImg = document.getElementById("modal-image");
+            const closeModal = document.querySelector(".close");
+
+            images.forEach(image => {
+            image.addEventListener("click", () => {
+                modal.style.display = "block";
+                modalImg.src = image.src;
+                modalImg.style.transform = "scale(1)";
+                modalImg.style.left = "50%";
+                modalImg.style.top = "50%";
+                modalImg.style.transform = "translate(-50%, -50%)";
+            });
+            });
+
+            closeModal.addEventListener("click", () => {
+            modal.style.display = "none";
+            });
+
+            // Close modal when clicking outside the image
+            modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+            });
+
+            // Pan functionality with joystick
+            const joystick = document.getElementById("joystick");
+            let isDragging = false;
+            let startX, startY;
+
+            joystick.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            joystick.style.cursor = "grabbing";
+            });
+
+            document.addEventListener("mousemove", (e) => {
+            if (isDragging) {
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                modalImg.style.left = `${modalImg.offsetLeft + dx}px`;
+                modalImg.style.top = `${modalImg.offsetTop + dy}px`;
+                startX = e.clientX;
+                startY = e.clientY;
+            }
+            });
+
+            document.addEventListener("mouseup", () => {
+            isDragging = false;
+            joystick.style.cursor = "grab";
+            });
+
+            // Zoom functionality
+            modalImg.addEventListener("wheel", (e) => {
+            e.preventDefault();
+            let scale = parseFloat(modalImg.style.transform.match(/scale\(([^)]+)\)/)[1]);
+            scale += e.deltaY * -0.01;
+            scale = Math.min(Math.max(0.5, scale), 3);
+            modalImg.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            });
+
+            // Scroll animation
+            const projectItems = document.querySelectorAll(".project");
+
+            const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+                entry.target.classList.remove("inactive");
+                } else {
+                entry.target.classList.remove("active");
+                entry.target.classList.add("inactive");
+                }
+            });
+            }, { threshold: 0.5 });
+
+            projectItems.forEach(item => {
+            observer.observe(item);
+            });
         }
 
         // Initial render
         renderProjects();
-    });
-</script>
-<style>
-    .projects-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-    }
-    .project {
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        padding: 20px;
-        text-align: center;
-        width: 300px;
-    }
-    .project img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-    .project h3 {
-        margin: 10px 0;
-    }
-    .project a {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 10px 20px;
-        background-color: var(--primary-color, #007BFF);
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-    }
-    .project a:hover {
-        background-color: darken(var(--primary-color, #007BFF), 10%);
-    }
+        });
+        </script>
+        <style>
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .project {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease-in-out;
+        }
+        .project img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .project h3 {
+            margin: 10px 0;
+        }
+        .project a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: var(--primary-color, #007BFF);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .project a:hover {
+            background-color: darken(var(--primary-color, #007BFF), 10%);
+        }
+        .project-date {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            text-align: center;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease;
+            cursor: grab;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .joystick {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: grab;
+        }
+        .project.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project.inactive {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        </style>
+        </style>
 </style>
