@@ -1,4 +1,4 @@
-/* General styles */
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -10,7 +10,6 @@ body {
     min-height: 100vh;
 }
 
-/* Dark mode styles */
 body.dark {
     --background-color: #1e1e1e;
     --text-color: #ffffff;
@@ -57,9 +56,8 @@ header nav ul li a:hover {
     color: var(--link-hover-color);
 }
 
-/* Tabs styling */
 main {
-    margin-top: 60px; /* Prevent content from hiding under the header */
+    margin-top: 60px;
     flex: 1;
     padding: 20px;
 }
@@ -72,12 +70,12 @@ main section {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
-    display: none; /* Hide sections by default */
+    display: none; 
     color: var(--text-color);
 }
 
 main section.active {
-    display: block; /* Show the active section */
+    display: block; 
     animation: fadeIn 0.5s ease-in-out;
 }
 
@@ -89,7 +87,6 @@ main section h2 {
     color: var(--text-color);
 }
 
-/* Animation for smooth transitions */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -101,7 +98,6 @@ main section h2 {
     }
 }
 
-/* Resume iframe */
 iframe {
     border: none;
     border-radius: 5px;
@@ -113,7 +109,6 @@ iframe:hover {
     transform: scale(1.02);
 }
 
-/* Project elements */
 .project img, .project video {
     max-width: 100%;
     margin-top: 10px;
@@ -126,7 +121,6 @@ iframe:hover {
     transform: scale(1.05);
 }
 
-/* Contact section */
 #contact ul {
     list-style-type: none;
     padding: 0;
@@ -161,22 +155,20 @@ iframe:hover {
     transform: scale(1.2);
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 10px;
     background-color: var(--primary-color, #4CAF50);
     color: var(--text-color);
-    margin-top: auto; /* Ensures footer stays at the bottom */
+    margin-top: auto; 
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, color 0.3s;
-    font-size: 0.8em; /* Make the text smaller */
+    font-size: 0.8em; 
 }
 
-/* Theme toggle */
 #theme-toggle {
     position: fixed;
-    top: 70px; /* Below the header */
+    top: 70px; 
     right: 20px;
     background-color: var(--primary-color, #4CAF50);
     color: white;
@@ -184,7 +176,7 @@ footer {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1100; /* Ensures visibility above other elements */
+    z-index: 1100; 
     transition: transform 0.3s, background-color 0.3s;
 }
 
@@ -193,17 +185,16 @@ footer {
     background-color: #007bff;
 }
 
-/* Color palette */
 #color-palette {
     display: none;
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     position: fixed;
-    top: 120px; /* Below the theme toggle */
+    top: 120px; 
     right: 20px;
-    background: #ffffff; /* White background for visibility */
-    color: #333; /* Text color */
+    background: #ffffff; 
+    color: #333;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -217,7 +208,6 @@ footer {
     transform: translateY(0);
 }
 
-/* Buttons inside the color palette */
 #color-palette button {
     width: 100%;
     padding: 10px;
@@ -237,7 +227,6 @@ footer {
     transform: scale(1.05);
 }
 
-/* Blog styling */
 .blog-entry {
     margin-bottom: 20px;
     padding: 20px;
@@ -274,7 +263,7 @@ footer {
     color: var(--text-color);
     background-color: var(--background-color);
 }
-/* Smooth scrolling */
+
 html {
     scroll-behavior: smooth;
 }
