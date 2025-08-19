@@ -48,7 +48,6 @@
                 }
             });
 
-            // Dark and light mode with persistence
             document.getElementById("dark-mode").addEventListener("click", () => {
                 document.body.classList.add("dark");
                 localStorage.setItem("theme", "dark");
@@ -59,12 +58,10 @@
                 localStorage.setItem("theme", "light");
             });
 
-            // Apply saved theme on load
             if (localStorage.getItem("theme") === "dark") {
                 document.body.classList.add("dark");
             }
 
-            // Predefined color options
             const colorOptions = [
                 { name: "Tennessee Orange", value: "#FF8200" },
                 { name: "Green", value: "#4CAF50" },
@@ -73,7 +70,6 @@
                 { name: "Red", value: "#D32F2F" },
             ];
 
-            // Create color buttons dynamically
             colorOptions.forEach(color => {
                 const button = document.createElement("button");
                 button.textContent = color.name;
@@ -92,7 +88,6 @@
                 colorPalette.appendChild(button);
             });
 
-            // Navigation functionality
             navLinks.forEach(link => {
                 link.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -108,13 +103,11 @@
                 });
             });
 
-            // Show the home section by default
             document.querySelectorAll("main section").forEach(section => {
                 section.classList.remove("active");
             });
             document.getElementById("home").classList.add("active");
 
-            // Clock functionality
             let is24HourFormat = false;
 
             function updateClock() {
@@ -125,7 +118,7 @@
                 const ampm = hours >= 12 ? 'PM' : 'AM';
                 if (!is24HourFormat) {
                     hours = hours % 12;
-                    hours = hours ? hours : 12; // the hour '0' should be '12'
+                    hours = hours ? hours : 12;
                 }
                 const strTime = is24HourFormat
                     ? `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
@@ -133,9 +126,8 @@
                 document.getElementById('clock').textContent = strTime;
             }
             setInterval(updateClock, 1000);
-            updateClock(); // initial call to display clock immediately
+            updateClock();
 
-            // Update clock color based on theme
             function updateClockColor() {
                 const clock = document.getElementById('clock');
                 if (document.body.classList.contains('dark')) {
@@ -147,14 +139,11 @@
                 }
             }
 
-            // Call updateClockColor whenever the theme is changed
             document.getElementById('dark-mode').addEventListener('click', updateClockColor);
             document.getElementById('light-mode').addEventListener('click', updateClockColor);
 
-            // Initial call to set clock color based on default theme
             updateClockColor();
 
-            // Toggle 12/24 hour format
             const hourFormatToggle = document.createElement('button');
             hourFormatToggle.textContent = 'Toggle 12/24 Hour';
             hourFormatToggle.style.marginTop = '10px';
@@ -350,7 +339,6 @@
                             observer.observe(item);
                         });
 
-                        // Reset animation when a new entity is loaded
                         const navLinks = document.querySelectorAll("header nav ul li a");
                         navLinks.forEach(link => {
                             link.addEventListener("click", () => {
@@ -459,7 +447,6 @@
     document.addEventListener("DOMContentLoaded", () => {
         const projectsSection = document.getElementById("projects");
 
-        // Sample projects data
         const projects = [
             {
             title: "DeepAi, PeopleNET Person Detection",
@@ -508,7 +495,6 @@
             }
         ];
 
-        // Function to render projects
         function renderProjects() {
             projectsSection.innerHTML = `
             <h2>Projects</h2>
@@ -536,7 +522,6 @@
             </div>
             `;
 
-            // Add event listeners for image click
             const images = document.querySelectorAll(".project-image");
             const modal = document.getElementById("image-modal");
             const modalImg = document.getElementById("modal-image");
@@ -557,14 +542,12 @@
             modal.style.display = "none";
             });
 
-            // Close modal when clicking outside the image
             modal.addEventListener("click", (e) => {
             if (e.target === modal) {
                 modal.style.display = "none";
             }
             });
 
-            // Pan functionality with joystick
             const joystick = document.getElementById("joystick");
             let isDragging = false;
             let startX, startY;
@@ -592,7 +575,6 @@
             joystick.style.cursor = "grab";
             });
 
-            // Zoom functionality
             modalImg.addEventListener("wheel", (e) => {
             e.preventDefault();
             let scale = parseFloat(modalImg.style.transform.match(/scale\(([^)]+)\)/)[1]);
@@ -601,7 +583,6 @@
             modalImg.style.transform = `translate(-50%, -50%) scale(${scale})`;
             });
 
-            // Scroll animation
             const projectItems = document.querySelectorAll(".project");
 
             const observer = new IntersectionObserver(entries => {
@@ -620,7 +601,6 @@
             observer.observe(item);
             });
 
-            // View more functionality
             const viewMoreButtons = document.querySelectorAll(".view-more");
             const moreInfoModal = document.getElementById("more-info-modal");
             const moreInfoContent = document.getElementById("more-info-content");
@@ -652,7 +632,6 @@
             });
         }
 
-        // Initial render
         renderProjects();
         });
         </script>
