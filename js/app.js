@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         projects: 'components/projects.html',
         blog:     'components/blog.html',
         contact:  'components/contact.html',
+        // Admin route — not linked in public nav, accessible via #admin URL only
+        admin:    'components/admin.html',
     });
     router.init();
 
