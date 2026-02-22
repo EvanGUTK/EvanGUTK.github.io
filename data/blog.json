@@ -1,0 +1,29 @@
+[
+  {
+    "id": "ai-in-medicine",
+    "title": "The Future of AI in Medical Diagnostics",
+    "tag": "AI & Medicine",
+    "date": "Feb 2025",
+    "readTime": "5 min read",
+    "excerpt": "Exploring how large language models and computer vision are converging to transform radiology, pathology, and early disease detection — and what it means for the next generation of clinicians.",
+    "link": "#"
+  },
+  {
+    "id": "statistics-ml",
+    "title": "Why Statistics Still Matters in the Age of Deep Learning",
+    "tag": "Statistics",
+    "date": "Jan 2025",
+    "readTime": "4 min read",
+    "excerpt": "A deep dive into why statistical foundations — hypothesis testing, Bayesian inference, and causal reasoning — remain indispensable even as neural networks grow more powerful.",
+    "link": "#"
+  },
+  {
+    "id": "local-llm",
+    "title": "Running LLMs Locally: A Practical Guide",
+    "tag": "Engineering",
+    "date": "Dec 2024",
+    "readTime": "7 min read",
+    "excerpt": "From GGUF quantization to VRAM optimization, here is everything I have learned from running open-source language models on consumer hardware — including what actually works at scale.",
+    "link": "#"
+  }
+]

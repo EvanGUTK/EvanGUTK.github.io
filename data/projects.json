@@ -1,0 +1,54 @@
+[
+  {
+    "id": "deepai-peoplenet",
+    "title": "DeepAI — PeopleNET Person Detection",
+    "description": "Real-time ML-powered person detection system built for continuous security monitoring using Python and deep learning.",
+    "date": "January 2025 — Present",
+    "link": "https://github.com/EvanGUTK/DeepAI",
+    "image": "https://viso.ai/wp-content/smush-webp/2022/02/people-detection-1060x596.png.webp",
+    "tags": ["Python", "ML", "Computer Vision", "Security"],
+    "moreInfo": "This project leverages machine learning algorithms to detect people in real-time for security purposes. Built using Python, OpenCV, and deep learning inference pipelines, the system is designed for continuous 24/7 operation with low latency detection. The architecture supports multiple camera feeds and outputs bounding box predictions with confidence scores.",
+    "media": [
+      { "type": "image", "src": "https://viso.ai/wp-content/smush-webp/2022/02/people-detection-1060x596.png.webp" }
+    ]
+  },
+  {
+    "id": "project-2",
+    "title": "Project 2",
+    "description": "Description of project 2.",
+    "date": "TBD",
+    "link": "https://github.com/EvanGUTK",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop",
+    "tags": ["AI", "Research"],
+    "moreInfo": "More extensive information about project 2.",
+    "media": [
+      { "type": "image", "src": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop" }
+    ]
+  },
+  {
+    "id": "project-3",
+    "title": "Project 3",
+    "description": "Description of project 3.",
+    "date": "TBD",
+    "link": "https://github.com/EvanGUTK",
+    "image": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop",
+    "tags": ["Statistics", "Python"],
+    "moreInfo": "More extensive information about project 3.",
+    "media": [
+      { "type": "image", "src": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop" }
+    ]
+  },
+  {
+    "id": "project-4",
+    "title": "Project 4",
+    "description": "Description of project 4.",
+    "date": "TBD",
+    "link": "https://github.com/EvanGUTK",
+    "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&auto=format&fit=crop",
+    "tags": ["Deep Learning", "Neural Networks"],
+    "moreInfo": "More extensive information about project 4.",
+    "media": [
+      { "type": "image", "src": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&auto=format&fit=crop" }
+    ]
+  }
+]

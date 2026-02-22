@@ -1,0 +1,56 @@
+<div class="header-inner">
+    <a href="#home" class="header-brand" data-route="home">
+        <span class="brand-name">EvanGUTK</span>
+        <span class="brand-tag">AI Student</span>
+    </a>
+
+    <nav class="header-nav" role="navigation" aria-label="Main navigation">
+        <a href="#home"     class="nav-link" data-route="home">Home</a>
+        <a href="#resume"   class="nav-link" data-route="resume">Resume</a>
+        <a href="#projects" class="nav-link" data-route="projects">Projects</a>
+        <a href="#blog"     class="nav-link" data-route="blog">Blog</a>
+        <a href="#contact"  class="nav-link" data-route="contact">Contact</a>
+    </nav>
+
+    <div class="header-controls">
+        <span id="clock" title="Click to toggle 12/24h format" aria-label="Live clock">--:--:--</span>
+        <button class="btn-icon" id="settings-toggle" aria-label="Open settings" aria-expanded="false">⚙</button>
+        <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</div>
+
+<!-- Settings Panel -->
+<div id="settings-panel" role="dialog" aria-label="Settings" aria-hidden="true">
+    <p class="settings-section-title">Theme</p>
+    <div class="settings-row">
+        <button class="btn-theme" id="btn-dark" aria-pressed="true">Dark</button>
+        <button class="btn-theme" id="btn-light" aria-pressed="false">Light</button>
+    </div>
+
+    <p class="settings-section-title">Accent Color</p>
+    <div class="settings-row" id="color-swatches">
+        <button class="color-swatch active" data-color="#FF8200" style="background:#FF8200" title="Tennessee Orange" aria-label="Tennessee Orange"></button>
+        <button class="color-swatch" data-color="#00d4ff" style="background:#00d4ff" title="Cyan" aria-label="Cyan"></button>
+        <button class="color-swatch" data-color="#4CAF50" style="background:#4CAF50" title="Green" aria-label="Green"></button>
+        <button class="color-swatch" data-color="#6A1B9A" style="background:#6A1B9A" title="Purple" aria-label="Purple"></button>
+        <button class="color-swatch" data-color="#D32F2F" style="background:#D32F2F" title="Red" aria-label="Red"></button>
+    </div>
+
+    <p class="settings-section-title">Clock</p>
+    <div class="settings-row">
+        <button class="btn-clock-format" id="btn-clock-format">Toggle 12 / 24h</button>
+    </div>
+</div>
+
+<!-- Mobile Nav Drawer -->
+<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+    <nav class="nav-drawer-panel" role="navigation" aria-label="Mobile navigation">
+        <a href="#home"     class="nav-drawer-link" data-route="home">Home</a>
+        <a href="#resume"   class="nav-drawer-link" data-route="resume">Resume</a>
+        <a href="#projects" class="nav-drawer-link" data-route="projects">Projects</a>
+        <a href="#blog"     class="nav-drawer-link" data-route="blog">Blog</a>
+        <a href="#contact"  class="nav-drawer-link" data-route="contact">Contact</a>
+    </nav>
+</div>
